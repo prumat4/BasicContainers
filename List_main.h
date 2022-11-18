@@ -3,60 +3,68 @@
 template<typename T>
 struct List<T>::Node 
 {
+    T value;
     Node* next;
     Node* prev;
-
-    T value;
-
-    Node() 
-    {
-        this->next = nullptr;
-        this->prev = nullptr;
-        this->value = 0;
-    }
     
-    Node(T _value, Node* _next, Node* _prev) 
-    {
-        this->next = _next;
-        this->prev = _prev;
-        this->value = _value;
-    }
-
-    Node(T _value) 
-    {
-        this->next = nullptr;
-        this->prev = nullptr;
-        this->value = _value;
-    } 
+    Node();
+    Node(T _value, Node* _next, Node* _prev);
+    Node(T _value);
 };
 
 template<typename T>
-List<T>::List() 
+List<T>::Node::Node() 
 {
-    this->head = nullptr;
-    this->tail = nullptr;
+    this->next = nullptr;
+    this->prev = nullptr;
+    this->value = 0;
+}
 
-    this->size = 0;
+template<typename T>
+List<T>::Node::Node(T _value, Node* _prev, Node* _next) 
+{
+    this->next = _next;
+    this->prev = _prev;
+    this->value = _value;
+}
+
+template<typename T>
+List<T>::Node::Node(T _value) 
+{
+    this->next = nullptr;
+    this->prev = nullptr;
+    this->value = _value;
+}
+
+template<typename T>
+List<T>::List() 
+{   
+    head = tail = nullptr;
+    size = 0;
 }
 
 template<typename T>
 List<T>::~List() 
 {
-    clear();
+    delete head;
 }
 
 template<typename T>
-void List<T>::push_back(T element) 
-{   
+void List<T>::push_back(const T element) 
+{
     if(head == nullptr) 
     {
         head = tail = new Node(element);
-    } else 
+    } else if(size == 1) 
     {
-        tail->next = new Node(element);
+        head->next = new Node(element, head, nullptr);
+        tail = head->next;
+        tail->prev = head;
+    } else 
+    {   
+        tail->next = new Node(element, tail, nullptr);
         tail = tail->next;
     }
-
     size++;
 }
 
@@ -66,79 +74,131 @@ void List<T>::push_front(T element)
     if(head == nullptr) 
     {
         head = tail = new Node(element);
-
     } else 
     {
         head->prev = new Node(element, nullptr, head);
         head = head->prev;
-    }
+    } 
 
     size++;
-} 
+}
 
 template<typename T>
 void List<T>::pop_front() 
 {
-    if(size == 1) 
-    {
-        delete head;
-        head = tail = nullptr;
-    } else 
-    {   
-        Node* NodeToDelete = head;
-        head = head->next;
-        if(head) 
-        {
-            head->prev = nullptr;
-        }
-        delete NodeToDelete;
-    }
-
-    size--;
+    head = head->next;
+    delete head->prev;
+    head->prev = nullptr;
 }
 
 template<typename T>
-void List<T>::pop_back() 
+void List<T>::pop_back()
 {
-    if(size == 1) 
-    {
-        delete head;
-        head = tail = nullptr;
-    } else 
-    {   
-        Node* NodeToDelete = tail;
-        tail = tail->prev;
-        if(tail)
-            tail->next = nullptr;
-        delete NodeToDelete;
-    }
-
-    size--;
-} 
-
-template<typename T>
-void List<T>::clear()  
-{
-    while(size) 
-    {
-        pop_front();
-    }
+    tail = tail->prev;
+    delete tail->next;
+    tail->next = nullptr;
 }
 
 template<typename T>
 void List<T>::print() 
 {   
-    Node* current;
-    current = head;
-    while(current) 
+    Node* current = head;
+
+    while(current != nullptr) 
     {
-        std::cout << current->value << std::endl;
-        current = current->next;
+        std::cout << current->value << " ";
+        current = current->next;    
     }
+    std::cout << std::endl;
+}
+
+template<typename T>
+void List<T>::reverse_print() 
+{   
+    Node* current = tail;
+
+    while(current != nullptr) 
+    {
+        std::cout << current->value << " ";
+        current = current->prev;    
+    }
+    std::cout << std::endl;
 }
 
 template<typename T>
 int List<T>::get_size() 
 {
     return size;
+}
+
+template<typename T>
+bool List<T>::is_filled() 
+{
+    return size;
+}
+
+template<typename T> 
+void List<T>::insert_after(int index, const T& value)
+{   
+    if(index < 0 || index > this->size) 
+    {
+        std::cout << std::endl << "index value is invalid" << std::endl;
+    }
+    else if(index == 0) 
+    {
+        push_front(value);
+    } 
+    else if(index == (this->size)) 
+    {
+        push_back(value);
+    } 
+    else 
+    {
+        Node* current = head;
+        while(index != 1) 
+        {
+            current = current->next;
+            index--;
+        }
+        
+        Node* temp = new Node(value, current, current->next);
+        current->next = temp;
+        current->next->prev = temp;
+    }
+}
+
+
+template<typename T>
+void List<T>::sort() 
+{   
+    List<T> temp;
+    Node* node = this->head;
+    Node* temp_node = temp.head;
+
+    int temporary_size = get_size();
+
+    while(temporary_size > 0) 
+    {   
+        temp.push_back(node->value);
+        node->value = 0; ////////////////////////////// ???
+        node = node->next;
+        temporary_size--;
+    }
+
+    while(node != nullptr)  // ain`t going into this cycle
+    {   
+        T min = temp_node->value;
+        
+        while(temp_node != nullptr) 
+        {
+            if(temp_node->value < min) 
+            {
+                min = temp_node->value;
+            } 
+            temp_node = temp_node->next;
+        }
+        
+        node->value = min;
+        node = node->next;
+    }
 }

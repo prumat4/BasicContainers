@@ -11,8 +11,6 @@ class List
     int size;
 
 public:
-    void clear();
-    
     List();
     ~List();
     
@@ -23,15 +21,28 @@ public:
     void pop_back();
     
     void print();
+    void reverse_print();
+    void insert_after(int index, const T& value);
+    void sort();
+
     int get_size();
+    bool is_filled();
 
 };
 
-// push front 
-// push back
+/*
+reverse // move throu and redirect pointers (head ---> tail, tail ---> head)
+SORT
+shift left
+++
++
+< 
+>=
+=
+    create new branch for them )))
+    erase and some methods with iterators  
+iterators
+const itr
 
-// pop front
-// pop back
 
-// clear
-// rename basic containers to list 
+*/ 

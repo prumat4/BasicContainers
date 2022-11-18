@@ -2,23 +2,32 @@
 
 int main() 
 {   
-    int val = 10, s = 1;
     List<int> a;
-    a.push_back(val);
+    a.push_front(4);
+    a.push_back(6);
     a.push_back(9);
+    a.push_front(2);
+    a.push_front(3);
     a.push_back(8);
     a.push_back(7);
-    a.push_front(s);
-    a.push_front(s);
-    a.push_front(s);
-    a.push_front(s);
-    a.push_front(s);
+    a.push_front(1);
+    a.push_front(5);
     
     a.print();
-    std::cout << "~!~~~~~~~~~~~~~" << std::endl;
-    a.pop_front();
-    a.pop_back();
-    a.print();
     
+    // a.pop_front();
+    // a.pop_back();
+    
+    // a.print();
+    // a.reverse_print();
+    // std::cout << a.get_size() << std::endl;
+    // a.insert_after(a.get_size() - 7, 666);
+    // std::cout << "~!~~~~~~~~~~~~~" << std::endl;
+    // a.print();
+    
+    // std::cout << a.is_filled() << std::endl;
+    a.sort();
+    a.print();
+
     return 1;
 }
