@@ -85,18 +85,29 @@ void List<T>::push_front(T element)
 
 template<typename T>
 void List<T>::pop_front() 
-{
-    head = head->next;
-    delete head->prev;
-    head->prev = nullptr;
+{   
+    if(size != 1) 
+    {
+        head = head->next;
+        delete head->prev;
+        head->prev = nullptr;
+
+        size--;
+    }
 }
 
 template<typename T>
 void List<T>::pop_back()
 {
-    tail = tail->prev;
-    delete tail->next;
-    tail->next = nullptr;
+    if(size != 1) 
+    {
+        tail = tail->prev;
+        delete tail->next;
+        tail->next = nullptr;
+
+        size--;
+    }
+
 }
 
 template<typename T>
@@ -167,38 +178,67 @@ void List<T>::insert_after(int index, const T& value)
     }
 }
 
-
-template<typename T>
-void List<T>::sort() 
-{   
-    List<T> temp;
-    Node* node = this->head;
-    Node* temp_node = temp.head;
-
-    int temporary_size = get_size();
-
-    while(temporary_size > 0) 
-    {   
-        temp.push_back(node->value);
-        node->value = 0; ////////////////////////////// ???
-        node = node->next;
-        temporary_size--;
+template<typename T> 
+void List<T>::clear() 
+{
+    while(size != 1) 
+    {
+        pop_back();
     }
 
-    while(node != nullptr)  // ain`t going into this cycle
-    {   
-        T min = temp_node->value;
-        
-        while(temp_node != nullptr) 
+    head->value = 0;
+}
+
+template<typename T> 
+void List<T>::insert_after(int index, const T& value)
+{   
+    if(index < 0 || index > this->size) 
+    {
+        std::cout << std::endl << "index value is invalid" << std::endl;
+    }
+    else if(index == 0) 
+    {
+        push_front(value);
+    } 
+    else if(index == (this->size)) 
+    {
+        push_back(value);
+    } 
+    else 
+    {
+        Node* current = head;
+        while(index != 1) 
         {
-            if(temp_node->value < min) 
-            {
-                min = temp_node->value;
-            } 
-            temp_node = temp_node->next;
+            current = current->next;
+            index--;
         }
         
-        node->value = min;
-        node = node->next;
+        Node* temp = new Node(value, current, current->next);
+        current->next = temp;
+        current->next->prev = temp;
     }
+}
+
+template<typename T>
+void List<T>::reverse() 
+{   
+    Node* temp = nullptr;
+    Node* current = head;
+
+    while(current != nullptr) 
+    {
+        temp = current->prev;
+        current->prev = current->next;
+        current->next = temp;
+        current = current->prev; 
+    }
+
+    if (temp != nullptr) 
+    {
+        head = temp->prev;
+    }
+
+    temp = head;
+    head = tail;
+    tail = temp;
 }

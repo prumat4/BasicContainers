@@ -17,7 +17,17 @@ int main()
     
     // a.pop_front();
     // a.pop_back();
-    
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+        
     // a.print();
     // a.reverse_print();
     // std::cout << a.get_size() << std::endl;
@@ -26,8 +36,10 @@ int main()
     // a.print();
     
     // std::cout << a.is_filled() << std::endl;
-    a.sort();
+    //a.reverse();
+    a.clear();
     a.print();
-
+    //a.print();
+    
     return 1;
 }

@@ -23,22 +23,15 @@ public:
     void print();
     void reverse_print();
     void insert_after(int index, const T& value);
-    void sort();
+    void reverse();
+    // Warning: this method ain`t delete all nodes besides first node, value of which will become zero
+    void clear();
 
     int get_size();
     bool is_filled();
-
 };
 
 /*
-reverse // move throu and redirect pointers (head ---> tail, tail ---> head)
-SORT
-shift left
-++
-+
-< 
->=
-=
     create new branch for them )))
     erase and some methods with iterators  
 iterators
