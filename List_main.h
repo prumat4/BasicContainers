@@ -189,36 +189,6 @@ void List<T>::clear()
     head->value = 0;
 }
 
-template<typename T> 
-void List<T>::insert_after(int index, const T& value)
-{   
-    if(index < 0 || index > this->size) 
-    {
-        std::cout << std::endl << "index value is invalid" << std::endl;
-    }
-    else if(index == 0) 
-    {
-        push_front(value);
-    } 
-    else if(index == (this->size)) 
-    {
-        push_back(value);
-    } 
-    else 
-    {
-        Node* current = head;
-        while(index != 1) 
-        {
-            current = current->next;
-            index--;
-        }
-        
-        Node* temp = new Node(value, current, current->next);
-        current->next = temp;
-        current->next->prev = temp;
-    }
-}
-
 template<typename T>
 void List<T>::reverse() 
 {   
@@ -241,4 +211,31 @@ void List<T>::reverse()
     temp = head;
     head = tail;
     tail = temp;
+}
+
+template<typename T>
+typename List<T>::Iterator List<T>::front() 
+{
+    return this->head;
+}
+
+template<typename T>
+typename List<T>::Iterator List<T>::back() 
+{
+    return this->tail;
+}
+
+template<typename T>
+T& List<T>::Iterator::operator * () 
+{
+    return current_node->value;
+}
+
+template<typename T> // 
+void List<T>::insert(Iterator itr, const T& value) 
+{
+    List<T>::Iterator temp = itr;
+
+    temp--;
+
 }
