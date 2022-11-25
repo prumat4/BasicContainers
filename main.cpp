@@ -1,8 +1,9 @@
-#include "List_main.h"
+#include "Iterator.h"
 
 int main() 
 {   
     List<int> a;
+    
     a.push_front(4);
     a.push_back(6);
     a.push_back(9);
@@ -15,31 +16,34 @@ int main()
     
     a.print();
     
-    // a.pop_front();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-        
-    // a.print();
-    // a.reverse_print();
-    // std::cout << a.get_size() << std::endl;
-    // a.insert_after(a.get_size() - 7, 666);
-    // std::cout << "~!~~~~~~~~~~~~~" << std::endl;
-    // a.print();
-    
-    // std::cout << a.is_filled() << std::endl;
-    //a.reverse();
-    a.clear();
+    a.pop_front();
+    a.pop_back();
+
     a.print();
-    //a.print();
+    std::cout << a.get_size() << std::endl;
+    a.insert_after(a.get_size() - 7, 666);
+    a.print();
     
+    std::cout << a.is_filled() << std::endl;
+    a.reverse();
+    a.print();
+
+    List<int>::Iterator itr = a.begin() + 1;
+    std::cout << *(itr) << std::endl;
+    itr++;
+    std::cout << *(itr) << std::endl;
+    List<int>::Iterator jtr = a.begin() + 2;
+
+    for(auto i = a.begin(); i != a.end(); i++) 
+    {   
+        std::cout << *i << " ";
+        *i++;
+        std::cout << *i << " ";
+        std::cout << std::endl;        
+    }
+        
+    a.reverse_print();
+    a.clear();
+
     return 1;
 }

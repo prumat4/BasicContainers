@@ -183,7 +183,7 @@ void List<T>::clear()
 {
     while(size != 1) 
     {
-        pop_back();
+        pop_front();
     }
 
     head->value = 0;
@@ -214,28 +214,38 @@ void List<T>::reverse()
 }
 
 template<typename T>
-typename List<T>::Iterator List<T>::front() 
+T& List<T>::front() 
 {
-    return this->head;
+    return head->value;
 }
 
 template<typename T>
-typename List<T>::Iterator List<T>::back() 
+T& List<T>::back()
 {
-    return this->tail;
+    return tail->value;
 }
 
 template<typename T>
-T& List<T>::Iterator::operator * () 
-{
-    return current_node->value;
+typename List<T>::Iterator List<T>::begin() 
+{   
+    return (this->head);
 }
 
-template<typename T> // 
-void List<T>::insert(Iterator itr, const T& value) 
-{
-    List<T>::Iterator temp = itr;
-
-    temp--;
-
+template<typename T>
+typename List<T>::Iterator List<T>::end() 
+{   
+    return (this->tail);
 }
+
+// template<typename T> 
+// void List<T>::insert(Iterator itr, const T& value) 
+// {
+//     List<T>::Iterator temp = itr;
+
+//     temp--;
+
+//     itr.current_node->next = new Node(value, itr.current_node, temp.current_node);
+
+//     if(!())
+
+// }

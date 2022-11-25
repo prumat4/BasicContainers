@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 template<typename T>
 class List 
 {
@@ -11,11 +12,10 @@ class List
     int size;
 
 public:
-    class Iterator;
+    struct Iterator;
 
-    typename List<T>::Iterator front();
-    // or just Iterator begin();
-    typename List<T>::Iterator back();
+    typename List<T>::Iterator begin();
+    typename List<T>::Iterator end();
 
     List();
     ~List();
@@ -23,7 +23,7 @@ public:
     void push_back(T element);
     void push_front(T element);
 
-    void insert(Iterator itr, const T& value);
+    // void insert(Iterator itr, const T& value);
 
     void pop_front();
     void pop_back();
@@ -38,4 +38,8 @@ public:
 
     int get_size();
     bool is_filled();
+
+    T& front();
+    T& back();
 };
+
