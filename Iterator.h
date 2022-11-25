@@ -91,7 +91,6 @@ typename List<T>::Iterator& List<T>::Iterator::operator + (int step)
         }
         step--;
     }
-
     return *this;
 }
 
@@ -109,7 +108,6 @@ typename List<T>::Iterator& List<T>::Iterator:: operator - (int step)
 
         step--;
     }
-
     return *this;
 }
 

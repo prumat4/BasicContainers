@@ -79,7 +79,6 @@ void List<T>::push_front(T element)
         head->prev = new Node(element, nullptr, head);
         head = head->prev;
     } 
-
     size++;
 }
 

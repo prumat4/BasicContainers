@@ -32,6 +32,7 @@ int main()
     std::cout << *(itr) << std::endl;
     itr++;
     std::cout << *(itr) << std::endl;
+    
     List<int>::Iterator jtr = a.begin() + 2;
 
     for(auto i = a.begin(); i != a.end(); i++) 
